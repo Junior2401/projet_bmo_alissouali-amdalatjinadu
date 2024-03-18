@@ -1,0 +1,48 @@
+StateDiagram [frame=true framecolor=steelblue label="State Diagram" splines=ortho] {
+  state ConsulterLesEvenements
+  state ChoisirUnévènementEtVoirLesParisPossibles
+	state PageDInscription
+  state PageDeConnexion
+  state ChoisirUnTypeDeParisEtRemplirLesInformations
+  state FixerLaMise
+  state ValiderLaMiseEtLancerLePari
+  state DemanderRechargementDuPortefeuille
+  state RenseignerLeMontantEtLesMoyensDePaiements
+  state CrediterLePortefeuille
+  state PariPlacerAvecSuccès
+  state AjouterGainAuPortefeuilleDuParieur
+  state PariAnnulé
+  state finDeParis
+  initialState -> ConsulterLesEvenements
+  ConsulterLesEvenements -> ChoisirUnévènementEtVoirLesParisPossibles
+  choice EstInscrit
+  PageDInscription ->EstInscrit
+  EstInscrit ->PageDeConnexion"est inscrit"
+  EstInscrit ->PageDInscription"n'est pas inscrit"
+ ChoisirUnévènementEtVoirLesParisPossibles -> PageDInscription
+ choice EstConnecté
+ PageDeConnexion ->EstConnecté
+ EstConnecté ->ChoisirUnTypeDeParisEtRemplirLesInformations"estConnecté" 
+ EstConnecté ->PageDeConnexion"non Connecté" 
+ ChoisirUnTypeDeParisEtRemplirLesInformations->FixerLaMise
+ FixerLaMise->ValiderLaMiseEtLancerLePari
+ choice VerifierSolde
+ ValiderLaMiseEtLancerLePari-> VerifierSolde
+ VerifierSolde->DemanderRechargementDuPortefeuille"solde insuffisant" 
+ VerifierSolde-> PariPlacerAvecSuccès"solde suffisant" 
+ choice SiAccepté
+ DemanderRechargementDuPortefeuille-> SiAccepté
+ SiAccepté-> RenseignerLeMontantEtLesMoyensDePaiements"si demandeRechargement ok" 
+ SiAccepté-> PariAnnulé "si demandeRechargement pas ok"
+ PariAnnulé -> finalstate
+ choice SiPayer
+ RenseignerLeMontantEtLesMoyensDePaiements->SiPayer
+ SiPayer->CrediterLePortefeuille"si paiement ok"
+ SiPayer-> PariAnnulé"si paiement pas ok"
+CrediterLePortefeuille->PariPlacerAvecSuccès
+choice Résultats
+PariPlacerAvecSuccès->Résultats
+Résultats-> AjouterGainAuPortefeuilleDuParieur"si paris gagnant"
+Résultats-> finDeParis"si paris perdant"
+finDeParis->finalstate  
+ }

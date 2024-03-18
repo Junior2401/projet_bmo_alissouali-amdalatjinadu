@@ -1,0 +1,21 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Ajout de l'évènement"] {
+  actor BookMaker
+  lifeline "winBet" as web
+  lifeline "Base de Données" as bdd
+  BookMaker --> web "Demande d'authentification"
+  web --> bdd "Vérification des données de l'utilisateur"
+  activate BookMaker
+  activate web
+  activate bdd
+
+  fragment alt "[Validation de l'utilisateur]"{
+  web <-r- bdd "Authentification reussi"
+  BookMaker <-r- web "Redirection vers sa section"
+  BookMaker --> web "AjouterEvènement(nom_évènement,date_debut,nbre_max pari)"
+  web --> bdd "Persister l'évenement dans la Base de Données"
+    web <-r- bdd "Notification de reussite"
+BookMaker <-r- web "Message de succès d'ajout d'évènement"
+}
+web <-r- bdd "Echec d'authentification"
+BookMaker <-r- web "réessayer authentification"
+}

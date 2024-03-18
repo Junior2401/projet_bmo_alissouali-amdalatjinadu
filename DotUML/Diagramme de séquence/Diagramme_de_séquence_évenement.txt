@@ -1,0 +1,17 @@
+# CONSULTATION D'UN EVENEMENT
+SequenceDiagram [frame=true framecolor=steelblue label="Diagramme de séquence évenement"] {
+  actor parieur
+  lifeline "WinBet" as web
+ 
+  parieur --> web "ConsulterEvenement"
+  activate web
+  parieur <-r- web "Afficher liste Evènement"
+  parieur --> web "Sélectionner un évènement"
+  activate web
+  parieur <-r- web "Afficher les détails de l'Evènement"
+  parieur --> web "Consulter pari"
+  activate web
+  parieur <-r- web "Afficher pari"
+  
+  
+}

@@ -1,0 +1,23 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Diagramme de séquence d'authentification"] {
+  actor parieur
+  lifeline "winBet" as web
+  lifeline "Base de Données" as bdd
+ 	
+  parieur --> web "Demande d'authentification"
+  activate web
+  activate parieur
+  web --> bdd "Vérification des données de l'utilisateur"
+  activate bdd
+  fragment alt"[Validation de l'utilisateur]"{
+  web <-r- bdd "Authentification reussi"
+  parieur <-r- web "Redirection vers sa section"
+  parieur --> web "Consulter mes évènements"
+  activate web
+  web --> bdd "Demande d'évènements spécifiques"
+  web <-r- bdd "liste des évènements spécifique"
+  parieur <-r- web "Afficher liste des évènements spécifique" 
+
+}
+   web <-r- bdd "Authentification échoué"
+   parieur <-r- web "réessayer authentification"
+}
