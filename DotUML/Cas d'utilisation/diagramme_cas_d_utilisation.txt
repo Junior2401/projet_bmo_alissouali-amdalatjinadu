@@ -1,0 +1,34 @@
+UseCaseDiagram {
+  
+   system "Solution de gestion de paris sportif: WinBet" as sys {
+     
+    usecase inscription as "inscription"
+    usecase consulterevenementetparis as "Consulter les évenements et les paris"
+     
+    usecase authentification as "S'authentifier"
+     
+    usecase parier as "Parier sur un évenement"
+  	usecase gerercompte as "Gérer son compte"
+     
+     
+    usecase paris as "Gérer les paris"
+    usecase gererevenement as "Gérer les évenements"
+     
+   }
+  
+  
+  actor parieur as "Parieur"
+  
+  parieur -- inscription
+  parieur -- consulterevenementetparis
+  parieur -- authentification
+
+  parier -i-> authentification
+  gerercompte -i-> authentification
+  
+	actor bookmaker as "BookMaker"
+	bookmaker -- paris
+  bookmaker -- gererevenement
+  bookmaker -- authentification
+
+}

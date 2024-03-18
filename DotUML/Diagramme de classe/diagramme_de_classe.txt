@@ -1,0 +1,87 @@
+ClassDiagram [frame=true framecolor=steelblue label="Solution de gestion de paris sportif: WinBet"] {
+ 
+ abstract class Utilisateurs {
+  private id : Integer
+  private nom : String
+  private prenom : String  
+  private email : String
+  private addresse: String
+  private loginStatus : Boolean
+  public authentification(email: String, password: String)
+ }
+  
+ class Parieurs {
+  private id : Integer
+  private portefeuille : String
+  public inscription()
+  public authentification()
+  public rechargerPortefeuille()
+  public recevoirGain()
+  public placerParis()
+ }
+
+ class BookMakers {
+  private id : Integer
+  public ajouterEvenement()
+  public modifierEvenement()
+  public supprimerEvenement()
+  public ajouterParis()
+  public ModifierParis()
+  public limiterMontantMaxParis()
+  public deplafonerMontantParis()
+ }
+ 
+ class Paris {
+  private id : Integer
+  private montant : Double
+  private resultat : String
+  private StatutParis : String
+  public crediterGain(): Double
+  public debiterMontant(): Double
+ }
+
+ class Evenements {
+  private id : Integer
+  private intitule : String
+  private options : String
+  private cote : Double
+   
+ }
+
+ class TypeSports {
+  private id : Integer
+  private libelle : String
+  private regle : String
+ }
+  
+ class TypeParis {
+  private id : integer
+  private libelle : String
+  private description : String
+ }
+
+
+ align {
+  Parieurs
+  Utilisateurs
+ }
+
+ align {
+  Paris
+  Evenements
+ }
+  
+ align {
+  TypeSports
+  Evenements
+ }
+
+ Parieurs -g-> Utilisateurs
+ BookMakers -g-> Utilisateurs
+ Parieurs "1" -- "0..*" Paris;
+ Evenements "1" -- "*" Paris;
+ TypeParis "1" -- "*" Paris;
+ Evenements "1..0*" -- "1" TypeSports
+ //Product -- OrderItem  
+  
+}
