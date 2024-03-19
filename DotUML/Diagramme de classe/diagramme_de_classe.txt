@@ -60,28 +60,34 @@ ClassDiagram [frame=true framecolor=steelblue label="Solution de gestion de pari
   private description : String
  }
 
-
+ align {
+  BookMakers
+  Evenements
+ }
+  
  align {
   Parieurs
   Utilisateurs
  }
 
- align {
-  Paris
-  Evenements
- }
   
  align {
   TypeSports
   Evenements
  }
+  
+  align {
+  Parieurs
+  TypeParis
+ }
 
  Parieurs -g-> Utilisateurs
  BookMakers -g-> Utilisateurs
- Parieurs "1" -- "0..*" Paris : Parier;
+ Evenements "1..*" -- "1" BookMakers : Créer
+ Parieurs "1" -- "*" Paris : Parier;
  Evenements "1" -- "*" Paris : Concerner;
  TypeParis "1" -- "*" Paris : Appartenir;
- Evenements "1..0*" -- "1" TypeSports : Dépendre
+ Evenements "1..*" -- "1" TypeSports : Dépendre
  //Product -- OrderItem  
   
 }
